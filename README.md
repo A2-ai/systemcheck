@@ -70,9 +70,9 @@ By default, the script installer will install to `$XDG_BIN_HOME` if set, otherwi
 - Latest release (auto-selects your Linux architecture):
   - bash
     - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/latest/download/install.sh | sh`
-- Specific version (replace v0.1.1 with the tag you want):
+- Specific version (replace v0.1.2 with the tag you want):
   - bash
-    - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/download/v0.1.1/install.sh | sh`
+    - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/download/v0.1.2/install.sh | sh`
 
 This installs the binary into a standard location (`$XDG_BIN_HOME` or `~/.local/bin`). Ensure this dir is on your PATH.
 
@@ -84,7 +84,7 @@ If you want to force installation to `~/.local/bin` (and avoid modifying your sh
     - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/latest/download/install.sh | env CARGO_DIST_INSTALL_DIR="$HOME/.local" CARGO_DIST_NO_MODIFY_PATH=1 sh`
 - Specific version:
   - bash
-    - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/download/v0.1.1/install.sh | env CARGO_DIST_INSTALL_DIR="$HOME/.local" CARGO_DIST_NO_MODIFY_PATH=1 sh`
+    - `curl -fsSL https://github.com/A2-ai/systemcheck/releases/download/v0.1.2/install.sh | env CARGO_DIST_INSTALL_DIR="$HOME/.local" CARGO_DIST_NO_MODIFY_PATH=1 sh`
 
 Notes:
 - `CARGO_DIST_INSTALL_DIR="$HOME/.local"` makes the installer place the binary at `$HOME/.local/bin/systemcheck`.
