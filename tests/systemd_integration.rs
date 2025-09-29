@@ -30,6 +30,13 @@ fn parse_json_output(bytes: &[u8]) -> Option<Value> {
 }
 
 fn find_systemcheck_binary() -> Option<PathBuf> {
+    // https://doc.rust-lang.org/cargo/reference/cargo-targets.html#integration-tests
+    if let Some(path) = option_env!("CARGO_BIN_EXE_systemcheck") {
+        return Some(PathBuf::from(path));
+    }
+
+    // TODO: this seemingly didn't work right, but not going to investigate now
+    // further as the test now does properly run
     if let Ok(path) = std::env::var("CARGO_BIN_EXE_systemcheck") {
         return Some(PathBuf::from(path));
     }
