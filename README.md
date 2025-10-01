@@ -20,9 +20,25 @@ A tiny Rust CLI that prints CPU, memory, and cgroup constraints for your current
   - Current process cgroup lines from `/proc/self/cgroup`
   - Resource constraints for the current cgroup (CPU quota, memory limit)
 
-## Example output
+## Example outputs
+
 ```
-$systemcheck
+devin@demo|LoginNode demo:~$ systemcheck
+systemcheck: 0.1.3
+
+CPU Usage:
+Constrained to 3 of 4 CPUs
+
+Memory: Limited to 12 GiB of 26.8 GiB available
+CGroup: limits present at /system.slice/rstudio-launcher.service/jobs/BdjJQoPrO1B8dD8BEqnJhA==
+
+see more details with systemcheck -v
+```
+
+```
+devin@demo|LoginNode demo:~$ systemcheck -v
+systemcheck v0.1.3
+
 === System Check - Resource Diagnostics ===
 
 CPU Information:
@@ -36,11 +52,11 @@ CPU Information:
 Memory Information:
 -------------------
   System Total Memory:     30.6 GiB
-  System Available Memory: 27.4 GiB
-  System Used Memory:      3.1 GiB
+  System Available Memory: 26.8 GiB
+  System Used Memory:      3.8 GiB
   CGroup Memory Limit:     12 GiB
   ⚠️  Memory is constrained by cgroups!
-  CGroup Memory Usage:     1 GiB (8.9% of limit)
+  CGroup Memory Usage:     2.1 GiB (18.0% of limit)
 
 CGroup Information:
 -------------------
@@ -51,6 +67,49 @@ CGroup Information:
   Resource Constraints for Current CGroup:
     CPU Quota: 3.00 CPUs
     Memory Limit: 12 GiB
+```
+
+```
+devin@demo|LoginNode demo:~$ systemcheck --json
+{
+  "version": "0.1.3",
+  "cpu": {
+    "available_cpus": 3,
+    "system_logical_cpus": 4,
+    "constrained": true
+  },
+  "memory": {
+    "system_available_bytes": 28752396288,
+    "cgroup_memory_limit_bytes": 12884901888,
+    "constrained": true
+  }
+}
+```
+
+```
+devin@demo|LoginNode demo:~$ systemcheck --json -v
+{
+  "version": "0.1.3",
+  "cpu": {
+    "system_logical_cpus": 4,
+    "system_physical_cpus": 2,
+    "available_cpus": 3,
+    "cgroup_cpu_quota": 3.0
+  },
+  "memory": {
+    "system_total_bytes": 32912883712,
+    "system_available_bytes": 28778659840,
+    "system_used_bytes": 4134223872,
+    "cgroup_memory_limit_bytes": 12884901888,
+    "cgroup_memory_usage_bytes": 2358259712
+  },
+  "cgroup": {
+    "version": "v2",
+    "current_path": "/system.slice/rstudio-launcher.service/jobs/BdjJQoPrO1B8dD8BEqnJhA==",
+    "cpu_quota": 3.0,
+    "memory_limit_bytes": 12884901888
+  }
+}
 ```
 
 Note: Actual numbers depend on your system and container limits.
